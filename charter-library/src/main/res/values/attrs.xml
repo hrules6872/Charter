@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Charter">
+        <attr name="c_lineColor" format="color" />
+        <attr name="c_chartFillColor" format="color" />
+        <attr name="c_indicatorVisible" format="boolean" />
+        <attr name="c_indicatorSize" format="dimension" />
+        <attr name="c_indicatorStrokeSize" format="dimension" />
+        <attr name="c_indicatorType" format="enum">
+            <enum name="circle" value="0" />
+            <enum name="square" value="1" />
+        </attr>
+        <attr name="c_indicatorColor" format="color" />
+        <attr name="c_indicatorStyle" format="enum">
+            <enum name="fill" value="0" />
+            <enum name="stroke" value="1" />
+        </attr>
+        <attr name="c_strokeSize" format="dimension" />
+        <attr name="c_smoothness" format="float" />
+        <attr name="c_anim" format="boolean" />
+        <attr name="c_animDuration" format="integer" />
+        <attr name="c_autoShow" format="boolean" />
+        <attr name="c_paintBarBackground" format="boolean" />
+        <attr name="c_barColor" format="color" />
+        <attr name="c_barBackgroundColor" format="color" />
+        <attr name="c_barMargin" format="dimension" />
+        <attr name="c_stickyEdges" format="boolean" />
+        <attr name="c_verticalGravity" format="enum">
+            <enum name="top" value="0" />
+            <enum name="center" value="1" />
+            <enum name="bottom" value="2" />
+        </attr>
+        <attr name="c_horizontalGravity" format="enum">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+        <attr name="c_labelColor" format="color" />
+        <attr name="c_labelSize" format="dimension" />
+    </declare-styleable>
+</resources>
