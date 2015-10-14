@@ -1,5 +1,6 @@
 Charter
 =====
+![image](demo.gif)
 
 ##Importing to your project
 Add this dependency to your build.gradle file:
