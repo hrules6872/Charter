@@ -1,19 +1,19 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+  compileSdkVersion 23
+  buildToolsVersion "23.0.1"
 
-    defaultConfig {
-        applicationId "com.hrules.charter.demo"
-        minSdkVersion 15
-        targetSdkVersion 23
-        versionCode 100
-        versionName "1.0.0"
-    }
+  defaultConfig {
+    applicationId "com.hrules.charter.demo"
+    minSdkVersion 15
+    targetSdkVersion 23
+    versionCode 100
+    versionName "1.0.0"
+  }
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile project(':charter-library')
+  compile 'com.android.support:appcompat-v7:23.1.0'
+  compile project(':charter-library')
 }
