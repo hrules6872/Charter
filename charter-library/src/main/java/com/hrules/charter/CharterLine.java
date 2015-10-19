@@ -79,7 +79,7 @@ public class CharterLine extends CharterBase {
         typedArray.getBoolean(R.styleable.Charter_c_indicatorVisible, DEFAULT_INDICATOR_VISIBLE);
     indicatorType = typedArray.getInt(R.styleable.Charter_c_indicatorType, DEFAULT_INDICATOR_TYPE);
     indicatorSize = typedArray.getDimension(R.styleable.Charter_c_indicatorSize,
-        getResources().getDimension(R.dimen.default_circleSize));
+        getResources().getDimension(R.dimen.default_indicatorSize));
     indicatorStrokeSize = typedArray.getDimension(R.styleable.Charter_c_indicatorStrokeSize,
         getResources().getDimension(R.dimen.default_indicatorStrokeSize));
     indicatorColor = typedArray.getColor(R.styleable.Charter_c_indicatorColor,

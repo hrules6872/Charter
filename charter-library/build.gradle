@@ -8,8 +8,8 @@ android {
   defaultConfig {
     minSdkVersion 15
     targetSdkVersion 23
-    versionCode 110
-    versionName "1.1.0"
+    versionCode 111
+    versionName "1.1.1"
   }
 }
 
@@ -21,7 +21,7 @@ publish {
   userOrg = 'hrules6872'
   groupId = 'com.hrules'
   artifactId = 'charter'
-  version = '1.1.0'
+  version = '1.1.1'
   description = 'Charter'
   website = 'https://github.com/hrules6872/Charter'
   repository = "https://github.com/hrules6872/Charter.git"
