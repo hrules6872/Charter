@@ -30,6 +30,8 @@ class CharterBase extends View {
   boolean animFinished;
   Handler handlerAnim;
 
+  private CharterAnimListener animListener;
+
   protected CharterBase(Context context) {
     this(context, null);
   }
@@ -80,6 +82,18 @@ class CharterBase extends View {
     invalidate();
   }
 
+  public void resetValues() {
+    if (values == null || values.length == 0) {
+      return;
+    }
+
+    for (int i = 0; i < values.length; i++) {
+      values[i] = minY;
+    }
+
+    setValues(values);
+  }
+
   private void getMaxMinValues(float[] values) {
     if (values != null && values.length > 0) {
       maxY = values[0];
@@ -107,6 +121,9 @@ class CharterBase extends View {
   }
 
   public void setMaxY(float maxY) {
+    if (values == null) {
+      throw new IllegalStateException("You must call setValues() first");
+    }
     this.maxY = maxY;
     invalidate();
   }
@@ -116,6 +133,9 @@ class CharterBase extends View {
   }
 
   public void setMinY(float minY) {
+    if (values == null) {
+      throw new IllegalStateException("You must call setValues() first");
+    }
     this.minY = minY;
     invalidate();
   }
@@ -132,6 +152,10 @@ class CharterBase extends View {
         valuesTransition[i] = valuesTransition[i] + step;
         animFinished = false;
       }
+    }
+
+    if (animFinished && animListener != null) {
+      animListener.onAnimFinish();
     }
   }
 
@@ -161,5 +185,9 @@ class CharterBase extends View {
   public void setAnimDuration(long animDuration) {
     this.animDuration = animDuration;
     replayAnim();
+  }
+
+  public void setAnimListener(CharterAnimListener animListener) {
+    this.animListener = animListener;
   }
 }

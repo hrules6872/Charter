@@ -278,7 +278,8 @@ public class CharterLine extends CharterBase {
     fullWidthCorrectionX = fullWidth ? 0 : (border / 2);
     for (int i = 0; i < valuesLength; i++) {
       float x = fullWidthCorrectionX + i * width / dX;
-      float y = (border / 2) + height - (valuesTransition[i] - minY) * height / dY;
+      float pointBorder = !indicatorVisible && valuesTransition[i] == minY ? border : border / 2;
+      float y = pointBorder + height - (valuesTransition[i] - minY) * height / dY;
       points.add(new PointF(x, y));
     }
 
@@ -288,14 +289,15 @@ public class CharterLine extends CharterBase {
     path.moveTo(points.get(0).x, points.get(0).y);
     for (int i = 1; i < valuesLength; i++) {
       PointF p = points.get(i);
+      float pointSmoothness = valuesTransition[i] == minY ? 0 : smoothness;
 
       PointF firstPointF = points.get(i - 1);
       float x1 = firstPointF.x + lX;
       float y1 = firstPointF.y + lY;
 
       PointF secondPointF = points.get(i + 1 < valuesLength ? i + 1 : i);
-      lX = (secondPointF.x - firstPointF.x) / 2 * smoothness;
-      lY = (secondPointF.y - firstPointF.y) / 2 * smoothness;
+      lX = (secondPointF.x - firstPointF.x) / 2 * pointSmoothness;
+      lY = (secondPointF.y - firstPointF.y) / 2 * pointSmoothness;
       float x2 = p.x - lX;
       float y2 = p.y - lY;
       if (y1 == p.y) {
