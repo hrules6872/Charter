@@ -2,7 +2,7 @@ Charter
 =====
 ![image](result.gif)  
 ![image](zonghe1.gif)  
-![image](zonghe2.gif)  
+![image](zonghe22.gif)  
 ```
 下面三幅图是我在原作者的基础上添加的。  
 
@@ -12,7 +12,7 @@ Charter
 学到不少东西！！你值得拥有！
 ```
 
-为自己做个广告（^_^）：
+为自己做个广告（^_^）：  
 欢迎关注[我的github](https://github.com/longyinzaitian)！  
 欢迎关注[我的博客](http://blog.csdn.net/u010156024)！  
 
