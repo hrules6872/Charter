@@ -1,6 +1,20 @@
 Charter
 =====
-![image](demo.gif)
+![image](result.gif)  
+![image](zonghe1.gif)  
+![image](zonghe2.gif)  
+```
+下面三幅图是我在原作者的基础上添加的。  
+
+提交的代码中给出了大部分的注释，读者可以轻松的看出代码的功能。  
+
+不得不说，大牛的代码读起来真的是一种享受！！  
+学到不少东西！！你值得拥有！
+```
+
+为自己做个广告（^_^）：
+欢迎关注[我的github](https://github.com/longyinzaitian)！  
+欢迎关注[我的博客](http://blog.csdn.net/u010156024)！  
 
 ##Importing to your project
 Add this dependency to your build.gradle file:
