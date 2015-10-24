@@ -14,24 +14,32 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 public class CharterLabelsBase extends View {
+  /**
+   * 垂直方向默认三种 上中下
+   */
   public static final int VERTICAL_GRAVITY_TOP = 0;
   public static final int VERTICAL_GRAVITY_CENTER = 1;
   public static final int VERTICAL_GRAVITY_BOTTOM = 2;
+  /**
+   * 水平方向默认三种：左中右
+   */
   public static final int HORIZONTAL_GRAVITY_LEFT = 0;
   public static final int HORIZONTAL_GRAVITY_CENTER = 1;
   public static final int HORIZONTAL_GRAVITY_RIGHT = 2;
-  private static final int DEFAULT_VERTICAL_GRAVITY = VERTICAL_GRAVITY_CENTER;
+  //垂直方向默认居下
+  private static final int DEFAULT_VERTICAL_GRAVITY = VERTICAL_GRAVITY_BOTTOM;
+  //水平方向默认居左
   private static final int DEFAULT_HORIZONTAL_GRAVITY = HORIZONTAL_GRAVITY_LEFT;
   private static final boolean DEFAULT_STICKY_EDGES = false;
 
-  Paint paintLabel;
-  boolean[] visibilityPattern;
-  int verticalGravity;
-  int horizontalGravity;
-  String[] values;
-  boolean stickyEdges;
-  private int paintLabelColor;
-  private float paintLabelSize;
+  Paint paintLabel;//标签的画笔
+  boolean[] visibilityPattern;//标签的显示模式
+  int verticalGravity;//纵轴标签显示位置
+  int horizontalGravity;//横轴标签的显示位置
+  String[] values;//标签数值
+  boolean stickyEdges;//是否跨边显示
+  private int paintLabelColor;//标签的颜色
+  private float paintLabelSize;//标签的大小
 
   protected CharterLabelsBase(Context context) {
     this(context, null);
@@ -54,27 +62,41 @@ public class CharterLabelsBase extends View {
   }
 
   private void init(Context context, AttributeSet attrs) {
+    /**
+     * isInEditMode()是view类的方法，默认返回false
+     */
     if (isInEditMode()) {
       return;
     }
 
-    final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Charter);
-    stickyEdges = typedArray.getBoolean(R.styleable.Charter_c_stickyEdges, DEFAULT_STICKY_EDGES);
+    final TypedArray typedArray = context.obtainStyledAttributes(attrs,
+            R.styleable.Charter);
+    stickyEdges = typedArray.getBoolean(
+            R.styleable.Charter_c_stickyEdges, DEFAULT_STICKY_EDGES);
+    //垂直方向 默认居中
     verticalGravity =
-        typedArray.getInt(R.styleable.Charter_c_verticalGravity, DEFAULT_VERTICAL_GRAVITY);
+        typedArray.getInt(R.styleable.Charter_c_verticalGravity,
+                DEFAULT_VERTICAL_GRAVITY);
+    //水平方向，默认居左
     horizontalGravity =
-        typedArray.getInt(R.styleable.Charter_c_horizontalGravity, DEFAULT_HORIZONTAL_GRAVITY);
+        typedArray.getInt(R.styleable.Charter_c_horizontalGravity,
+                DEFAULT_HORIZONTAL_GRAVITY);
+    //标签的颜色
     paintLabelColor = typedArray.getColor(R.styleable.Charter_c_labelColor,
         getResources().getColor(R.color.default_labelColor));
+    //标签大小，默认10sp
     paintLabelSize = typedArray.getDimension(R.styleable.Charter_c_labelSize,
         getResources().getDimension(R.dimen.default_labelSize));
-    typedArray.recycle();
-
+    typedArray.recycle();//回收
+    //标签画笔
     paintLabel = new Paint();
     paintLabel.setAntiAlias(true);
     paintLabel.setColor(paintLabelColor);
     paintLabel.setTextSize(paintLabelSize);
-
+    /**
+     *  标签可见性模式 默认显示、显示、显示。。。。。
+     *  当然也可以设置模式。
+     */
     visibilityPattern = new boolean[] { true };
   }
 
@@ -108,7 +130,7 @@ public class CharterLabelsBase extends View {
   public int getVerticalGravity() {
     return verticalGravity;
   }
-
+  //使用注解 限制设置的值
   public void setVerticalGravity(@VerticalGravity int verticalGravity) {
     this.verticalGravity = verticalGravity;
     invalidate();
@@ -169,6 +191,7 @@ public class CharterLabelsBase extends View {
     if (summarize) {
       values = summarize(values);
     }
+    //将值转化成字符串
     setValues(floatArrayToStringArray(values));
   }
 
@@ -184,6 +207,12 @@ public class CharterLabelsBase extends View {
     return stringArray;
   }
 
+  /**
+   * 将值进行汇总
+   * 汇总之后的值共有五个。最后显示的值也就五个值。
+   * @param values
+   * @return
+   */
   private float[] summarize(float[] values) {
     if (values == null) {
       return new float[] {};
@@ -204,13 +233,18 @@ public class CharterLabelsBase extends View {
     return new float[] { min, diff / 5, diff / 2, (diff / 5) * 4, max };
   }
 
+  /**
+   * 定义注解
+   */
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ VERTICAL_GRAVITY_TOP, VERTICAL_GRAVITY_CENTER, VERTICAL_GRAVITY_BOTTOM })
+  @IntDef({ VERTICAL_GRAVITY_TOP, VERTICAL_GRAVITY_CENTER,
+          VERTICAL_GRAVITY_BOTTOM })
   public @interface VerticalGravity {
   }
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ HORIZONTAL_GRAVITY_LEFT, HORIZONTAL_GRAVITY_CENTER, HORIZONTAL_GRAVITY_RIGHT })
+  @IntDef({ HORIZONTAL_GRAVITY_LEFT, HORIZONTAL_GRAVITY_CENTER,
+          HORIZONTAL_GRAVITY_RIGHT })
   public @interface HorizontalGravity {
   }
 }

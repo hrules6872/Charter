@@ -1,97 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:fillViewport="true">
-
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:orientation="vertical"
-      android:padding="20dp">
-
-    <com.hrules.charter.CharterLine
-        android:id="@+id/charter_line"
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"/>
-
-    <com.hrules.charter.CharterBar
-        android:id="@+id/charter_bar"
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="30dp"/>
-
-    <com.hrules.charter.CharterBar
-        android:id="@+id/charter_bar_no_margin"
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="30dp"/>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="com.hrules.charter.demo.MainActivity">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:id="@+id/toallmode"
+    android:text="所有模式列表"
+    android:gravity="center_horizontal|center_vertical"
+    android:background="@color/lightblue300"
+    />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/zonghe1"
         android:layout_marginTop="30dp"
-        android:orientation="vertical">
-
-      <com.hrules.charter.CharterLine
-          android:id="@+id/charter_line_with_XLabel"
-          android:layout_width="fill_parent"
-          android:layout_height="100dp"/>
-
-      <com.hrules.charter.CharterXLabels
-          android:id="@+id/charter_line_XLabel"
-          android:layout_width="fill_parent"
-          android:layout_height="20dp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="综合模式一"
+        android:background="@color/colorPrimary"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/zonghe2"
         android:layout_marginTop="30dp"
-        android:orientation="vertical">
+        android:gravity="center_horizontal|center_vertical"
+        android:text="综合模式二"
+        android:background="@color/colorAccent"
+        />
 
-      <com.hrules.charter.CharterBar
-          android:id="@+id/charter_bar_with_XLabel"
-          android:layout_width="fill_parent"
-          android:layout_height="100dp"/>
-
-      <com.hrules.charter.CharterXLabels
-          android:id="@+id/charter_bar_XLabel"
-          android:layout_width="fill_parent"
-          android:layout_height="20dp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal">
-
-      <com.hrules.charter.CharterYLabels
-          android:id="@+id/charter_line_YLabel"
-          android:layout_width="20dp"
-          android:layout_height="100dp"/>
-
-      <com.hrules.charter.CharterLine
-          android:id="@+id/charter_line_with_YLabel"
-          android:layout_width="fill_parent"
-          android:layout_height="100dp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal">
-
-      <com.hrules.charter.CharterYLabels
-          android:id="@+id/charter_bar_YLabel"
-          android:layout_width="20dp"
-          android:layout_height="100dp"/>
-
-      <com.hrules.charter.CharterBar
-          android:id="@+id/charter_bar_with_YLabel"
-          android:layout_width="fill_parent"
-          android:layout_height="100dp"/>
-    </LinearLayout>
-  </LinearLayout>
-</ScrollView>
+</LinearLayout>
