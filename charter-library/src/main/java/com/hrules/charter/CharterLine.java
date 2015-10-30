@@ -373,10 +373,10 @@ public class CharterLine extends CharterBase {
   }
 
   @Retention(RetentionPolicy.SOURCE) @IntDef({ INDICATOR_STYLE_FILL, INDICATOR_STYLE_STROKE })
-  public @interface IndicatorType {
+  public @interface IndicatorStyle {
   }
 
   @Retention(RetentionPolicy.SOURCE) @IntDef({ INDICATOR_TYPE_CIRCLE, INDICATOR_TYPE_SQUARE })
-  public @interface IndicatorStyle {
+  public @interface IndicatorType {
   }
 }
