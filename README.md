@@ -1,5 +1,7 @@
 Charter
 =====
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Charter-green.svg?style=true)](https://android-arsenal.com/details/1/2885)
+
 ![image](demo.gif)
 
 ##Importing to your project
