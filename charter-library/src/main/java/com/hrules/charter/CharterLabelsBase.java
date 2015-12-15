@@ -13,7 +13,7 @@ import android.view.View;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-public class CharterLabelsBase extends View {
+class CharterLabelsBase extends View {
   public static final int VERTICAL_GRAVITY_TOP = 0;
   public static final int VERTICAL_GRAVITY_CENTER = 1;
   public static final int VERTICAL_GRAVITY_BOTTOM = 2;
@@ -30,8 +30,6 @@ public class CharterLabelsBase extends View {
   int horizontalGravity;
   String[] values;
   boolean stickyEdges;
-  private int paintLabelColor;
-  private float paintLabelSize;
 
   protected CharterLabelsBase(Context context) {
     this(context, null);
@@ -64,9 +62,9 @@ public class CharterLabelsBase extends View {
         typedArray.getInt(R.styleable.Charter_c_verticalGravity, DEFAULT_VERTICAL_GRAVITY);
     horizontalGravity =
         typedArray.getInt(R.styleable.Charter_c_horizontalGravity, DEFAULT_HORIZONTAL_GRAVITY);
-    paintLabelColor = typedArray.getColor(R.styleable.Charter_c_labelColor,
+    int paintLabelColor = typedArray.getColor(R.styleable.Charter_c_labelColor,
         getResources().getColor(R.color.default_labelColor));
-    paintLabelSize = typedArray.getDimension(R.styleable.Charter_c_labelSize,
+    float paintLabelSize = typedArray.getDimension(R.styleable.Charter_c_labelSize,
         getResources().getDimension(R.dimen.default_labelSize));
     typedArray.recycle();
 
@@ -124,22 +122,20 @@ public class CharterLabelsBase extends View {
   }
 
   public int getLabelColor() {
-    return paintLabelColor;
+    return paintLabel.getColor();
   }
 
   public void setLabelColor(@ColorInt int labelColor) {
     paintLabel.setColor(labelColor);
-    paintLabelColor = labelColor;
     invalidate();
   }
 
   public float getLabelSize() {
-    return paintLabelSize;
+    return paintLabel.getTextSize();
   }
 
   public void setLabelSize(float labelSize) {
     paintLabel.setTextSize(labelSize);
-    paintLabelSize = labelSize;
     invalidate();
   }
 

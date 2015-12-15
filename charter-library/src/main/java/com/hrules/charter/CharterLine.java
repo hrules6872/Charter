@@ -27,20 +27,23 @@ public class CharterLine extends CharterBase {
   public static final int INDICATOR_STYLE_STROKE = 1;
   private static final int DEFAULT_INDICATOR_TYPE = INDICATOR_TYPE_CIRCLE;
   private static final int DEFAULT_INDICATOR_STYLE = INDICATOR_STYLE_STROKE;
+
   private static final boolean DEFAULT_INDICATOR_VISIBLE = true;
   private static final float DEFAULT_SMOOTHNESS = 0.2f;
   private static final boolean DEFAULT_FULL_WIDTH = false;
-  public boolean fullWidth;
+
+  private boolean fullWidth;
+
   private Paint paintLine;
   private Paint paintFill;
   private Paint paintIndicator;
   private Path path;
   private int lineColor;
-  private int chartFillColor;
   private int defaultBackgroundColor;
   private int chartBackgroundColor;
   private float strokeSize;
   private float smoothness;
+
   private float indicatorSize;
   private boolean indicatorVisible;
   private int indicatorType;
@@ -73,7 +76,7 @@ public class CharterLine extends CharterBase {
     fullWidth = typedArray.getBoolean(R.styleable.Charter_c_fullWidth, DEFAULT_FULL_WIDTH);
     lineColor = typedArray.getColor(R.styleable.Charter_c_lineColor,
         getResources().getColor(R.color.default_lineColor));
-    chartFillColor = typedArray.getColor(R.styleable.Charter_c_chartFillColor,
+    int chartFillColor = typedArray.getColor(R.styleable.Charter_c_chartFillColor,
         getResources().getColor(R.color.default_chartFillColor));
     indicatorVisible =
         typedArray.getBoolean(R.styleable.Charter_c_indicatorVisible, DEFAULT_INDICATOR_VISIBLE);
@@ -210,12 +213,11 @@ public class CharterLine extends CharterBase {
   }
 
   public int getChartFillColor() {
-    return chartFillColor;
+    return paintFill.getColor();
   }
 
   public void setChartFillColor(@ColorInt int chartFillColor) {
     paintFill.setColor(chartFillColor);
-    this.chartFillColor = chartFillColor;
     invalidate();
   }
 
@@ -324,7 +326,7 @@ public class CharterLine extends CharterBase {
         float x = points.get(i).x;
         float y = points.get(i).y;
 
-        paintIndicator.setColor(lineColor);
+        paintIndicator.setColor(indicatorColor);
         paintIndicator.setStyle(Paint.Style.FILL_AND_STROKE);
         if (indicatorType == INDICATOR_TYPE_CIRCLE) {
           canvas.drawCircle(x, y, indicatorSize / 2, paintIndicator);

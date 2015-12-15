@@ -8,7 +8,7 @@ Charter
 Add this dependency to your build.gradle file:
 ```java
 dependencies {
-    compile 'com.hrules:charter:1.2.1'
+    compile 'com.hrules:charter:1.2.2'
 }
 ```
 

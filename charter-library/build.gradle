@@ -3,25 +3,25 @@ apply plugin: 'bintray-release'
 
 android {
   compileSdkVersion 23
-  buildToolsVersion "23.0.1"
+  buildToolsVersion "23.0.2"
 
   defaultConfig {
     minSdkVersion 15
     targetSdkVersion 23
-    versionCode 121
-    versionName "1.2.1"
+    versionCode 122
+    versionName "1.2.2"
   }
 }
 
 dependencies {
-  compile 'com.android.support:support-annotations:23.1.0'
+  compile 'com.android.support:support-annotations:23.+'
 }
 
 publish {
   userOrg = 'hrules6872'
   groupId = 'com.hrules'
   artifactId = 'charter'
-  version = '1.2.1'
+  version = '1.2.2'
   description = 'Charter'
   website = 'https://github.com/hrules6872/Charter'
   repository = "https://github.com/hrules6872/Charter.git"
