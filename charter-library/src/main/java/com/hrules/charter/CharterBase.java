@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Size;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
 class CharterBase extends View {
@@ -32,6 +33,7 @@ class CharterBase extends View {
   private long animDuration;
   boolean animFinished;
   ValueAnimator animator;
+  private Interpolator animInterpolator;
 
   Path path;
   private boolean showGridLinesX;
@@ -96,6 +98,7 @@ class CharterBase extends View {
 
     animFinished = false;
     animator = ValueAnimator.ofFloat(0f, 1f);
+    animInterpolator = new LinearInterpolator();
   }
 
   private long checkAnimDuration(long animDuration) {
@@ -223,6 +226,10 @@ class CharterBase extends View {
     this.animListener = animListener;
   }
 
+  public void setAnimInterpolator(Interpolator animInterpolator) {
+    this.animInterpolator = animInterpolator;
+  }
+
   void playAnimation() {
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
       @Override public void onAnimationUpdate(ValueAnimator animation) {
@@ -255,7 +262,7 @@ class CharterBase extends View {
       }
     });
     animator.setDuration(animDuration);
-    animator.setInterpolator(new LinearInterpolator());
+    animator.setInterpolator(animInterpolator);
     animator.start();
   }
 

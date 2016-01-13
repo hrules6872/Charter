@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.BounceInterpolator;
 import com.hrules.charter.CharterBar;
 import com.hrules.charter.CharterLine;
 import com.hrules.charter.CharterXLabels;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     // charter_line
     final CharterLine charterLine = (CharterLine) findViewById(R.id.charter_line);
     charterLine.setValues(values);
+    charterLine.setAnimInterpolator(new BounceInterpolator());
     charterLine.setShowGridLines(true);
     charterLine.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
