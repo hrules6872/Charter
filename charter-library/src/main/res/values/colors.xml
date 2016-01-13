@@ -9,4 +9,5 @@
   <color name="default_labelColor">#000000</color>
   <color name="default_markerColor">#0099cc</color>
   <color name="default_separatorColor">#0099cc</color>
+  <color name="default_gridLinesColor">#bdbdbd</color>
 </resources>

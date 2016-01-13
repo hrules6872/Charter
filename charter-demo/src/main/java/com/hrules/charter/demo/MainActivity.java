@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     // charter_line
     final CharterLine charterLine = (CharterLine) findViewById(R.id.charter_line);
     charterLine.setValues(values);
+    charterLine.setShowGridLines(true);
     charterLine.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         values = fillRandomValues(DEFAULT_ITEMS_COUNT, DEFAULT_RANDOM_VALUE_MAX,
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
     charterBarNoMargin.setBarMargin(0);
     charterBarNoMargin.setColors(barColors);
     charterBarNoMargin.setColorsBackground(new int[] { android.R.color.white });
+    charterBarNoMargin.setShowGridLinesX(true);
+    charterBarNoMargin.setGridLinesCount(5);
     charterBarNoMargin.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         values = fillRandomValues(DEFAULT_ITEMS_COUNT, DEFAULT_RANDOM_VALUE_MAX,

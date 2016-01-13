@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
@@ -43,7 +42,6 @@ public class CharterLine extends CharterBase {
   private Paint paintLine;
   private Paint paintFill;
   private Paint paintIndicator;
-  private Path path;
   private int lineColor;
   private int defaultBackgroundColor;
   private int chartBackgroundColor;
@@ -119,8 +117,6 @@ public class CharterLine extends CharterBase {
     paintIndicator.setStrokeWidth(indicatorStrokeSize);
     defaultBackgroundColor = res.getColor(R.color.default_chartBackgroundColor);
     chartBackgroundColor = defaultBackgroundColor;
-
-    path = new Path();
   }
 
   public Paint getPaintLine() {
@@ -269,9 +265,9 @@ public class CharterLine extends CharterBase {
     final int valuesLength = valuesTransition.length;
     final float border = strokeSize + indicatorSize;
 
-    final float height = getMeasuredHeight() - border;
+    height = getMeasuredHeight() - border;
     fullWidthCorrectionX = fullWidth ? 0 : border;
-    final float width = getMeasuredWidth() - fullWidthCorrectionX;
+    width = getMeasuredWidth() - fullWidthCorrectionX;
 
     final float dX = valuesLength > 1 ? valuesLength - 1 : 2;
     final float dY = maxY - minY > 0 ? maxY - minY : 2;

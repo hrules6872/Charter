@@ -45,5 +45,10 @@
     <attr name="c_separatorColor" format="color"/>
     <attr name="c_widthCorrection" format="dimension"/>
     <attr name="c_heightCorrection" format="dimension"/>
+    <attr name="c_showGridLinesX" format="boolean"/>
+    <attr name="c_showGridLinesY" format="boolean"/>
+    <attr name="c_gridLinesCount" format="integer"/>
+    <attr name="c_gridLinesColor" format="color"/>
+    <attr name="c_gridLinesStrokeSize" format="dimension"/>
   </declare-styleable>
 </resources>

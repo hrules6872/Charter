@@ -2,4 +2,5 @@
 <resources>
   <integer name="default_animDuration">1000</integer>
   <integer name="default_minAnimDuration">300</integer>
+  <integer name="default_gridLinesCount">1</integer>
 </resources>

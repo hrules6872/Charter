@@ -142,9 +142,6 @@ public class CharterBar extends CharterBase {
 
     final int valuesLength = valuesTransition.length;
 
-    final float height = getMeasuredHeight();
-    final float width = getMeasuredWidth();
-
     final float barWidth = width / valuesLength;
     final float diff = maxY - minY;
     final float sliceHeight = height / diff;

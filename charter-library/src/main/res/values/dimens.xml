@@ -9,4 +9,5 @@
   <dimen name="default_separatorStrokeSize">0dp</dimen>
   <dimen name="default_markerWidthCorrection">0dp</dimen>
   <dimen name="default_barMinHeightCorrection">2dp</dimen>
+  <dimen name="default_gridLinesStrokeSize">1dp</dimen>
 </resources>

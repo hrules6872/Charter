@@ -6,4 +6,6 @@
   <bool name="default_stickyEdges">true</bool>
   <bool name="default_indicatorVisible">true</bool>
   <bool name="default_fullWidth">false</bool>
+  <bool name="default_showGridLinesX">false</bool>
+  <bool name="default_showGridLinesY">false</bool>
 </resources>
