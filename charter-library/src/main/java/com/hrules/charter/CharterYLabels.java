@@ -40,6 +40,8 @@ public class CharterYLabels extends CharterLabelsBase {
     final float gap = height / (valuesLength - 1);
 
     int visibilityPatternPos = -1;
+    float x;
+    float y;
 
     for (int i = 0; i < valuesLength; i++) {
       if (visibilityPatternPos + 1 >= visibilityPattern.length) {
@@ -53,9 +55,6 @@ public class CharterYLabels extends CharterLabelsBase {
         paintLabel.getTextBounds(values[i], 0, values[i].length(), textBounds);
         int textHeight = 2 * textBounds.bottom - textBounds.top;
         float textWidth = textBounds.right;
-
-        float x;
-        float y;
 
         switch (horizontalGravity) {
           default:
@@ -79,7 +78,6 @@ public class CharterYLabels extends CharterLabelsBase {
         } else {
           y = gap * i + (textHeight / 2);
         }
-
         canvas.drawText(values[i], x, y, paintLabel);
       }
     }

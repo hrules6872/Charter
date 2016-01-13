@@ -2,12 +2,15 @@ package com.hrules.charter;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
+import android.support.annotation.Size;
 import android.util.AttributeSet;
 import android.view.View;
 import java.lang.annotation.Retention;
@@ -22,7 +25,16 @@ class CharterLabelsBase extends View {
   public static final int HORIZONTAL_GRAVITY_RIGHT = 2;
   private static final int DEFAULT_VERTICAL_GRAVITY = VERTICAL_GRAVITY_CENTER;
   private static final int DEFAULT_HORIZONTAL_GRAVITY = HORIZONTAL_GRAVITY_LEFT;
-  private static final boolean DEFAULT_STICKY_EDGES = false;
+
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ VERTICAL_GRAVITY_TOP, VERTICAL_GRAVITY_CENTER, VERTICAL_GRAVITY_BOTTOM })
+  public @interface VerticalGravity {
+  }
+
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ HORIZONTAL_GRAVITY_LEFT, HORIZONTAL_GRAVITY_CENTER, HORIZONTAL_GRAVITY_RIGHT })
+  public @interface HorizontalGravity {
+  }
 
   Paint paintLabel;
   boolean[] visibilityPattern;
@@ -57,13 +69,15 @@ class CharterLabelsBase extends View {
     }
 
     final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Charter);
-    stickyEdges = typedArray.getBoolean(R.styleable.Charter_c_stickyEdges, DEFAULT_STICKY_EDGES);
+    Resources res = getResources();
+    stickyEdges = typedArray.getBoolean(R.styleable.Charter_c_stickyEdges,
+        res.getBoolean(R.bool.default_stickyEdges));
     verticalGravity =
         typedArray.getInt(R.styleable.Charter_c_verticalGravity, DEFAULT_VERTICAL_GRAVITY);
     horizontalGravity =
         typedArray.getInt(R.styleable.Charter_c_horizontalGravity, DEFAULT_HORIZONTAL_GRAVITY);
     int paintLabelColor = typedArray.getColor(R.styleable.Charter_c_labelColor,
-        getResources().getColor(R.color.default_labelColor));
+        res.getColor(R.color.default_labelColor));
     float paintLabelSize = typedArray.getDimension(R.styleable.Charter_c_labelSize,
         getResources().getDimension(R.dimen.default_labelSize));
     typedArray.recycle();
@@ -89,7 +103,7 @@ class CharterLabelsBase extends View {
     return paintLabel;
   }
 
-  public void setPaintLabel(Paint paintLabel) {
+  public void setPaintLabel(@NonNull Paint paintLabel) {
     this.paintLabel = paintLabel;
     invalidate();
   }
@@ -98,7 +112,7 @@ class CharterLabelsBase extends View {
     return visibilityPattern;
   }
 
-  public void setVisibilityPattern(boolean[] visibilityPattern) {
+  public void setVisibilityPattern(@NonNull @Size(min = 1) boolean[] visibilityPattern) {
     this.visibilityPattern = visibilityPattern;
     invalidate();
   }
@@ -198,15 +212,5 @@ class CharterLabelsBase extends View {
     float diff = max - min;
 
     return new float[] { min, diff / 5, diff / 2, (diff / 5) * 4, max };
-  }
-
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ VERTICAL_GRAVITY_TOP, VERTICAL_GRAVITY_CENTER, VERTICAL_GRAVITY_BOTTOM })
-  public @interface VerticalGravity {
-  }
-
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ HORIZONTAL_GRAVITY_LEFT, HORIZONTAL_GRAVITY_CENTER, HORIZONTAL_GRAVITY_RIGHT })
-  public @interface HorizontalGravity {
   }
 }

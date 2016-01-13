@@ -40,6 +40,8 @@ public class CharterXLabels extends CharterLabelsBase {
     final float gap = stickyEdges ? width / (valuesLength - 1) : width / valuesLength;
 
     int visibilityPatternPos = -1;
+    float x;
+    float y;
 
     for (int i = 0; i < valuesLength; i++) {
       if (visibilityPatternPos + 1 >= visibilityPattern.length) {
@@ -53,9 +55,6 @@ public class CharterXLabels extends CharterLabelsBase {
         paintLabel.getTextBounds(values[i], 0, values[i].length(), textBounds);
         int textHeight = 2 * textBounds.bottom - textBounds.top;
         float textWidth = textBounds.right;
-
-        float x;
-        float y;
 
         switch (verticalGravity) {
           case VERTICAL_GRAVITY_TOP:
@@ -80,11 +79,10 @@ public class CharterXLabels extends CharterLabelsBase {
           } else {
             x = gap * (i - 1) + gap - (textWidth / 2);
           }
-          canvas.drawText(values[i], x, y, paintLabel);
         } else {
           x = gap * i + (gap / 2) - (textWidth / 2);
-          canvas.drawText(values[i], x, y, paintLabel);
         }
+        canvas.drawText(values[i], x, y, paintLabel);
       }
     }
   }

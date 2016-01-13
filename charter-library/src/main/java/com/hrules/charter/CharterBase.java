@@ -1,24 +1,19 @@
 package com.hrules.charter;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.os.Build;
-import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.annotation.Size;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 
 class CharterBase extends View {
-  static final int ANIM_DELAY_MILLIS = 30;
-  static final boolean DEFAULT_ANIM = true;
-  static final long DEFAULT_ANIM_DURATION = 500;
-  static final boolean DEFAULT_AUTOSHOW = true;
-
-  final Runnable doNextAnimStep = new Runnable() {
-    @Override public void run() {
-      invalidate();
-    }
-  };
-
   float minY;
   float maxY;
 
@@ -26,9 +21,9 @@ class CharterBase extends View {
   float[] valuesTransition;
 
   boolean anim;
-  long animDuration;
+  private long animDuration;
   boolean animFinished;
-  Handler handlerAnim;
+  ValueAnimator animator;
 
   private CharterAnimListener animListener;
 
@@ -42,22 +37,40 @@ class CharterBase extends View {
 
   protected CharterBase(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
-    init();
+    init(context, attrs);
   }
 
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
   protected CharterBase(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);
-    init();
+    init(context, attrs);
   }
 
-  private void init() {
+  private void init(final Context context, final AttributeSet attrs) {
     if (isInEditMode()) {
       return;
     }
 
+    final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Charter);
+    Resources res = getResources();
+    anim =
+        typedArray.getBoolean(R.styleable.Charter_c_anim, res.getBoolean(R.bool.default_animState));
+    animDuration = checkAnimDuration(typedArray.getInt(R.styleable.Charter_c_animDuration,
+        res.getInteger(R.integer.default_animDuration)));
+    setWillNotDraw(!typedArray.getBoolean(R.styleable.Charter_c_autoShow,
+        res.getBoolean(R.bool.default_autoShow)));
+    typedArray.recycle();
+
     animFinished = false;
-    handlerAnim = new Handler();
+    animator = ValueAnimator.ofFloat(0f, 1f);
+  }
+
+  private long checkAnimDuration(long animDuration) {
+    int minAnimDuration = getResources().getInteger(R.integer.default_minAnimDuration);
+    if (animDuration < minAnimDuration) {
+      animDuration = minAnimDuration;
+    }
+    return animDuration;
   }
 
   public void show() {
@@ -69,17 +82,10 @@ class CharterBase extends View {
     return values;
   }
 
-  public void setValues(float[] values) {
-    if (values == null || values.length == 0) {
-      return;
-    }
-
+  public void setValues(@NonNull @Size(min = 1) float[] values) {
     this.values = values;
     getMaxMinValues(values);
-    initValuesTarget(values);
-
-    animFinished = false;
-    invalidate();
+    replayAnim();
   }
 
   public void resetValues() {
@@ -140,22 +146,14 @@ class CharterBase extends View {
     invalidate();
   }
 
-  void calculateNextAnimStep() {
-    animFinished = true;
+  private void calculateNextAnimStep(float animationProgress) {
+    float step = (animationProgress * maxY);
     for (int i = 0; i < valuesTransition.length; i++) {
-      float diff = values[i] - minY;
-      float step = (diff * ANIM_DELAY_MILLIS) / animDuration;
-
-      if (valuesTransition[i] + step >= values[i]) {
-        valuesTransition[i] = values[i];
-      } else {
-        valuesTransition[i] = valuesTransition[i] + step;
-        animFinished = false;
-      }
+      valuesTransition[i] = (step >= values[i]) ? values[i] : step;
     }
 
-    if (animFinished && animListener != null) {
-      animListener.onAnimFinish();
+    if (animListener != null) {
+      animListener.onAnimProgress(animationProgress);
     }
   }
 
@@ -165,6 +163,7 @@ class CharterBase extends View {
     }
 
     initValuesTarget(values);
+    animator.cancel();
     animFinished = false;
     invalidate();
   }
@@ -183,11 +182,47 @@ class CharterBase extends View {
   }
 
   public void setAnimDuration(long animDuration) {
-    this.animDuration = animDuration;
+    this.animDuration = checkAnimDuration(animDuration);
     replayAnim();
   }
 
   public void setAnimListener(CharterAnimListener animListener) {
     this.animListener = animListener;
+  }
+
+  void playAnimation() {
+    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+      @Override public void onAnimationUpdate(ValueAnimator animation) {
+        calculateNextAnimStep((float) animation.getAnimatedValue());
+        invalidate();
+      }
+    });
+    animator.addListener(new Animator.AnimatorListener() {
+      @Override public void onAnimationStart(Animator animation) {
+        if (animListener != null) {
+          animListener.onAnimStart();
+        }
+      }
+
+      @Override public void onAnimationEnd(Animator animation) {
+        animFinished = true;
+        if (animListener != null) {
+          animListener.onAnimFinish();
+        }
+      }
+
+      @Override public void onAnimationCancel(Animator animation) {
+        if (animListener != null) {
+          animListener.onAnimCancel();
+        }
+      }
+
+      @Override public void onAnimationRepeat(Animator animation) {
+
+      }
+    });
+    animator.setDuration(animDuration);
+    animator.setInterpolator(new LinearInterpolator());
+    animator.start();
   }
 }

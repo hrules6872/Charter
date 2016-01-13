@@ -4,8 +4,9 @@
   <color name="default_chartBackgroundColor">#ffffff</color>
   <color name="default_chartFillColor">#800099cc</color>
   <color name="default_indicatorColor">#0099cc</color>
-
   <color name="default_barColor">#0099cc</color>
   <color name="default_barBackgroundColor">#190099cc</color>
   <color name="default_labelColor">#000000</color>
+  <color name="default_markerColor">#0099cc</color>
+  <color name="default_separatorColor">#0099cc</color>
 </resources>

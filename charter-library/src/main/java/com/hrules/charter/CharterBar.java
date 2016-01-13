@@ -2,21 +2,22 @@ package com.hrules.charter;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Build;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
+import android.support.annotation.Size;
 import android.util.AttributeSet;
 
 public class CharterBar extends CharterBase {
-  private static final boolean DEFAULT_PAINT_BAR_BACKGROUND = true;
-  private static final float DEFAULT_BAR_MIN_CORRECTION = 2f;
-
   private boolean paintBarBackground;
   private int barBackgroundColor;
   private float barMargin;
+  private float barMinHeightCorrection;
 
   private Paint paintBar;
   private int[] colors;
@@ -43,18 +44,17 @@ public class CharterBar extends CharterBase {
 
   private void init(final Context context, final AttributeSet attrs) {
     final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Charter);
+    Resources res = getResources();
     paintBarBackground = typedArray.getBoolean(R.styleable.Charter_c_paintBarBackground,
-        DEFAULT_PAINT_BAR_BACKGROUND);
-    int barColor = typedArray.getColor(R.styleable.Charter_c_barColor,
-        getResources().getColor(R.color.default_barColor));
+        res.getBoolean(R.bool.default_barPaintBackground));
+    int barColor =
+        typedArray.getColor(R.styleable.Charter_c_barColor, res.getColor(R.color.default_barColor));
     int barBackgroundColor = typedArray.getColor(R.styleable.Charter_c_barBackgroundColor,
-        getResources().getColor(R.color.default_barBackgroundColor));
+        res.getColor(R.color.default_barBackgroundColor));
     barMargin = typedArray.getDimension(R.styleable.Charter_c_barMargin,
-        getResources().getDimension(R.dimen.default_barMargin));
-    anim = typedArray.getBoolean(R.styleable.Charter_c_anim, DEFAULT_ANIM);
-    animDuration =
-        typedArray.getInt(R.styleable.Charter_c_animDuration, (int) DEFAULT_ANIM_DURATION);
-    setWillNotDraw(!typedArray.getBoolean(R.styleable.Charter_c_autoShow, DEFAULT_AUTOSHOW));
+        res.getDimension(R.dimen.default_barMargin));
+    barMinHeightCorrection = typedArray.getDimension(R.styleable.Charter_c_barMinHeightCorrection,
+        res.getDimension(R.dimen.default_barMinHeightCorrection));
     typedArray.recycle();
 
     paintBar = new Paint();
@@ -68,7 +68,7 @@ public class CharterBar extends CharterBase {
     return paintBar;
   }
 
-  public void setPaintBar(Paint paintBar) {
+  public void setPaintBar(@NonNull Paint paintBar) {
     this.paintBar = paintBar;
     invalidate();
   }
@@ -77,11 +77,7 @@ public class CharterBar extends CharterBase {
     return colors;
   }
 
-  public void setColors(@ColorInt int[] colors) {
-    if (colors == null || colors.length == 0) {
-      return;
-    }
-
+  public void setColors(@NonNull @Size(min = 1) @ColorInt int[] colors) {
     this.colors = colors;
     invalidate();
   }
@@ -90,11 +86,7 @@ public class CharterBar extends CharterBase {
     return colorsBackground;
   }
 
-  public void setColorsBackground(@ColorInt int[] colorsBackground) {
-    if (colorsBackground == null || colorsBackground.length == 0) {
-      return;
-    }
-
+  public void setColorsBackground(@NonNull @Size(min = 1) @ColorInt int[] colorsBackground) {
     this.colorsBackground = colorsBackground;
     invalidate();
   }
@@ -126,6 +118,17 @@ public class CharterBar extends CharterBase {
     invalidate();
   }
 
+  public float getBarMinHeightCorrection() {
+    return barMinHeightCorrection;
+  }
+
+  public void setBarMinHeightCorrection(float barMinHeightCorrection) {
+    if (barMinHeightCorrection <= 0f) {
+      return;
+    }
+    this.barMinHeightCorrection = barMinHeightCorrection;
+  }
+
   public void draw(Canvas canvas) {
     super.draw(canvas);
 
@@ -133,9 +136,7 @@ public class CharterBar extends CharterBase {
       return;
     }
 
-    if (anim) {
-      calculateNextAnimStep();
-    } else {
+    if (!anim) {
       valuesTransition = values.clone();
     }
 
@@ -155,7 +156,7 @@ public class CharterBar extends CharterBase {
       RectF rectF = new RectF();
       rectF.left = (i * barWidth) + barMargin;
       rectF.top = height - (sliceHeight * (valuesTransition[i] - minY));
-      rectF.top = rectF.top == height ? rectF.top - DEFAULT_BAR_MIN_CORRECTION : rectF.top;
+      rectF.top = rectF.top == height ? rectF.top - barMinHeightCorrection : rectF.top;
       rectF.right = (i * barWidth) + barWidth - barMargin;
       rectF.bottom = height;
 
@@ -177,12 +178,11 @@ public class CharterBar extends CharterBase {
         colorsPos++;
       }
       paintBar.setColor(colors[colorsPos]);
-
       canvas.drawRect(rectF.left, rectF.top, rectF.right, rectF.bottom, paintBar);
     }
 
-    if (anim && !animFinished) {
-      handlerAnim.postDelayed(doNextAnimStep, ANIM_DELAY_MILLIS);
+    if (anim && !animFinished && !animator.isRunning()) {
+      playAnimation();
     }
   }
 }

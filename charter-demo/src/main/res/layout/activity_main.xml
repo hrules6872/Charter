@@ -9,23 +9,27 @@
       android:orientation="vertical"
       android:padding="20dp">
 
+    <!--charter_line-->
     <com.hrules.charter.CharterLine
         android:id="@+id/charter_line"
         android:layout_width="fill_parent"
         android:layout_height="100dp"/>
 
+    <!--charter_bar-->
     <com.hrules.charter.CharterBar
         android:id="@+id/charter_bar"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:layout_marginTop="30dp"/>
 
+    <!--charter_bar_no_margin-->
     <com.hrules.charter.CharterBar
         android:id="@+id/charter_bar_no_margin"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:layout_marginTop="30dp"/>
 
+    <!--charter_line_XLabel-->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -43,6 +47,7 @@
           android:layout_height="20dp"/>
     </LinearLayout>
 
+    <!--charter_bar_XLabel-->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -60,6 +65,7 @@
           android:layout_height="20dp"/>
     </LinearLayout>
 
+    <!--charter_line_YLabel-->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -77,6 +83,7 @@
           android:layout_height="100dp"/>
     </LinearLayout>
 
+    <!--charter_bar_YLabel-->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -90,6 +97,78 @@
 
       <com.hrules.charter.CharterBar
           android:id="@+id/charter_bar_with_YLabel"
+          android:layout_width="fill_parent"
+          android:layout_height="100dp"/>
+    </LinearLayout>
+
+    <!--charter_line_XMarker-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+      <com.hrules.charter.CharterLine
+          android:id="@+id/charter_line_with_XMarker"
+          android:layout_width="fill_parent"
+          android:layout_height="100dp"/>
+
+      <com.hrules.charter.CharterXMarkers
+          android:id="@+id/charter_line_XMarker"
+          android:layout_width="fill_parent"
+          android:layout_height="20dp"/>
+    </LinearLayout>
+
+    <!--charter_bar_XMarker-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+      <com.hrules.charter.CharterBar
+          android:id="@+id/charter_bar_with_XMarker"
+          android:layout_width="fill_parent"
+          android:layout_height="100dp"/>
+
+      <com.hrules.charter.CharterXMarkers
+          android:id="@+id/charter_bar_XMarker"
+          android:layout_width="fill_parent"
+          android:layout_height="20dp"/>
+    </LinearLayout>
+
+    <!--charter_line_YMarker-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+      <com.hrules.charter.CharterYMarkers
+          android:id="@+id/charter_line_YMarker"
+          android:layout_width="20dp"
+          android:layout_height="100dp"/>
+
+      <com.hrules.charter.CharterLine
+          android:id="@+id/charter_line_with_YMarker"
+          android:layout_width="fill_parent"
+          android:layout_height="100dp"/>
+    </LinearLayout>
+
+    <!--charter_bar_YMarker-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+      <com.hrules.charter.CharterYMarkers
+          android:id="@+id/charter_bar_YMarker"
+          android:layout_width="20dp"
+          android:layout_height="100dp"/>
+
+      <com.hrules.charter.CharterBar
+          android:id="@+id/charter_bar_with_YMarker"
           android:layout_width="fill_parent"
           android:layout_height="100dp"/>
     </LinearLayout>

@@ -2,6 +2,7 @@ package com.hrules.charter;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -14,6 +15,7 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
 import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -21,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CharterLine extends CharterBase {
+  private static final float DEFAULT_SMOOTHNESS = 0.2f;
+
   public static final int INDICATOR_TYPE_CIRCLE = 0;
   public static final int INDICATOR_TYPE_SQUARE = 1;
   public static final int INDICATOR_STYLE_FILL = 0;
@@ -28,11 +32,13 @@ public class CharterLine extends CharterBase {
   private static final int DEFAULT_INDICATOR_TYPE = INDICATOR_TYPE_CIRCLE;
   private static final int DEFAULT_INDICATOR_STYLE = INDICATOR_STYLE_STROKE;
 
-  private static final boolean DEFAULT_INDICATOR_VISIBLE = true;
-  private static final float DEFAULT_SMOOTHNESS = 0.2f;
-  private static final boolean DEFAULT_FULL_WIDTH = false;
+  @Retention(RetentionPolicy.SOURCE) @IntDef({ INDICATOR_STYLE_FILL, INDICATOR_STYLE_STROKE })
+  public @interface IndicatorStyle {
+  }
 
-  private boolean fullWidth;
+  @Retention(RetentionPolicy.SOURCE) @IntDef({ INDICATOR_TYPE_CIRCLE, INDICATOR_TYPE_SQUARE })
+  public @interface IndicatorType {
+  }
 
   private Paint paintLine;
   private Paint paintFill;
@@ -50,6 +56,8 @@ public class CharterLine extends CharterBase {
   private int indicatorColor;
   private int indicatorStyle;
   private float indicatorStrokeSize;
+
+  private boolean fullWidth;
 
   public CharterLine(Context context) {
     this(context, null, 0);
@@ -72,30 +80,27 @@ public class CharterLine extends CharterBase {
 
   private void init(final Context context, final AttributeSet attrs) {
     final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Charter);
-
-    fullWidth = typedArray.getBoolean(R.styleable.Charter_c_fullWidth, DEFAULT_FULL_WIDTH);
+    Resources res = getResources();
+    fullWidth = typedArray.getBoolean(R.styleable.Charter_c_fullWidth,
+        res.getBoolean(R.bool.default_fullWidth));
     lineColor = typedArray.getColor(R.styleable.Charter_c_lineColor,
-        getResources().getColor(R.color.default_lineColor));
+        res.getColor(R.color.default_lineColor));
     int chartFillColor = typedArray.getColor(R.styleable.Charter_c_chartFillColor,
-        getResources().getColor(R.color.default_chartFillColor));
-    indicatorVisible =
-        typedArray.getBoolean(R.styleable.Charter_c_indicatorVisible, DEFAULT_INDICATOR_VISIBLE);
+        res.getColor(R.color.default_chartFillColor));
+    indicatorVisible = typedArray.getBoolean(R.styleable.Charter_c_indicatorVisible,
+        res.getBoolean(R.bool.default_indicatorVisible));
     indicatorType = typedArray.getInt(R.styleable.Charter_c_indicatorType, DEFAULT_INDICATOR_TYPE);
     indicatorSize = typedArray.getDimension(R.styleable.Charter_c_indicatorSize,
-        getResources().getDimension(R.dimen.default_indicatorSize));
+        res.getDimension(R.dimen.default_indicatorSize));
     indicatorStrokeSize = typedArray.getDimension(R.styleable.Charter_c_indicatorStrokeSize,
-        getResources().getDimension(R.dimen.default_indicatorStrokeSize));
+        res.getDimension(R.dimen.default_indicatorStrokeSize));
     indicatorColor = typedArray.getColor(R.styleable.Charter_c_indicatorColor,
-        getResources().getColor(R.color.default_indicatorColor));
+        res.getColor(R.color.default_indicatorColor));
     indicatorStyle =
         typedArray.getInt(R.styleable.Charter_c_indicatorStyle, DEFAULT_INDICATOR_STYLE);
     strokeSize = typedArray.getDimension(R.styleable.Charter_c_strokeSize,
-        getResources().getDimension(R.dimen.default_strokeSize));
+        res.getDimension(R.dimen.default_strokeSize));
     smoothness = typedArray.getFloat(R.styleable.Charter_c_smoothness, DEFAULT_SMOOTHNESS);
-    anim = typedArray.getBoolean(R.styleable.Charter_c_anim, DEFAULT_ANIM);
-    animDuration =
-        typedArray.getInt(R.styleable.Charter_c_animDuration, (int) DEFAULT_ANIM_DURATION);
-    setWillNotDraw(!typedArray.getBoolean(R.styleable.Charter_c_autoShow, DEFAULT_AUTOSHOW));
     typedArray.recycle();
 
     paintLine = new Paint();
@@ -112,7 +117,7 @@ public class CharterLine extends CharterBase {
     paintIndicator = new Paint();
     paintIndicator.setAntiAlias(true);
     paintIndicator.setStrokeWidth(indicatorStrokeSize);
-    defaultBackgroundColor = getResources().getColor(R.color.default_chartBackgroundColor);
+    defaultBackgroundColor = res.getColor(R.color.default_chartBackgroundColor);
     chartBackgroundColor = defaultBackgroundColor;
 
     path = new Path();
@@ -122,7 +127,7 @@ public class CharterLine extends CharterBase {
     return paintLine;
   }
 
-  public void setPaintLine(Paint paintLine) {
+  public void setPaintLine(@NonNull Paint paintLine) {
     this.paintLine = paintLine;
     invalidate();
   }
@@ -131,7 +136,7 @@ public class CharterLine extends CharterBase {
     return paintFill;
   }
 
-  public void setPaintFill(Paint paintFill) {
+  public void setPaintFill(@NonNull Paint paintFill) {
     this.paintFill = paintFill;
     invalidate();
   }
@@ -140,7 +145,7 @@ public class CharterLine extends CharterBase {
     return paintIndicator;
   }
 
-  public void setPaintIndicator(Paint paintIndicator) {
+  public void setPaintIndicator(@NonNull Paint paintIndicator) {
     this.paintIndicator = paintIndicator;
     invalidate();
   }
@@ -255,9 +260,7 @@ public class CharterLine extends CharterBase {
       return;
     }
 
-    if (anim) {
-      calculateNextAnimStep();
-    } else {
+    if (!anim) {
       valuesTransition = values.clone();
     }
 
@@ -355,12 +358,12 @@ public class CharterLine extends CharterBase {
       }
     }
 
-    if (anim && !animFinished) {
-      handlerAnim.postDelayed(doNextAnimStep, ANIM_DELAY_MILLIS);
+    if (anim && !animFinished && !animator.isRunning()) {
+      playAnimation();
     }
   }
 
-  @Override public void setBackgroundColor(int color) {
+  @Override public void setBackgroundColor(@ColorInt int color) {
     super.setBackgroundColor(color);
     chartBackgroundColor = color;
   }
@@ -372,13 +375,5 @@ public class CharterLine extends CharterBase {
     if (drawable instanceof ColorDrawable) {
       chartBackgroundColor = ((ColorDrawable) drawable).getColor();
     }
-  }
-
-  @Retention(RetentionPolicy.SOURCE) @IntDef({ INDICATOR_STYLE_FILL, INDICATOR_STYLE_STROKE })
-  public @interface IndicatorStyle {
-  }
-
-  @Retention(RetentionPolicy.SOURCE) @IntDef({ INDICATOR_TYPE_CIRCLE, INDICATOR_TYPE_SQUARE })
-  public @interface IndicatorType {
   }
 }

@@ -7,7 +7,9 @@ import android.view.View;
 import com.hrules.charter.CharterBar;
 import com.hrules.charter.CharterLine;
 import com.hrules.charter.CharterXLabels;
+import com.hrules.charter.CharterXMarkers;
 import com.hrules.charter.CharterYLabels;
+import com.hrules.charter.CharterYMarkers;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
         fillRandomValues(DEFAULT_ITEMS_COUNT, DEFAULT_RANDOM_VALUE_MAX, DEFAULT_RANDOM_VALUE_MIN);
     Resources res = getResources();
     int[] barColors = new int[] {
-        res.getColor(R.color.lightblue500), res.getColor(R.color.lightblue400),
-        res.getColor(R.color.lightblue300)
+        res.getColor(R.color.lightBlue500), res.getColor(R.color.lightBlue400),
+        res.getColor(R.color.lightBlue300)
     };
 
     // charter_line
@@ -146,6 +148,81 @@ public class MainActivity extends AppCompatActivity {
         charterBarYLabel.setValues(values, true);
       }
     });
+
+    // charter_line_XMarker
+    final CharterLine charterLineWithXMarker =
+        (CharterLine) findViewById(R.id.charter_line_with_XMarker);
+    charterLineWithXMarker.setValues(values);
+    charterLineWithXMarker.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        values = fillRandomValues(DEFAULT_ITEMS_COUNT, DEFAULT_RANDOM_VALUE_MAX,
+            DEFAULT_RANDOM_VALUE_MIN);
+        charterLineWithXMarker.setValues(values);
+        charterLineWithXMarker.show();
+      }
+    });
+
+    final CharterXMarkers charterLineXMarkers =
+        (CharterXMarkers) findViewById(R.id.charter_line_XMarker);
+    charterLineXMarkers.setSeparatorStrokeSize(2);
+    charterLineXMarkers.setWidthCorrectionFromCharterLine(charterLineWithXMarker);
+    charterLineXMarkers.setMarkersCount(DEFAULT_ITEMS_COUNT);
+
+    // charter_bar_XMarker
+    final CharterBar charterBarWithXMarker =
+        (CharterBar) findViewById(R.id.charter_bar_with_XMarker);
+    charterBarWithXMarker.setValues(values);
+    charterBarWithXMarker.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        values = fillRandomValues(DEFAULT_ITEMS_COUNT, DEFAULT_RANDOM_VALUE_MAX,
+            DEFAULT_RANDOM_VALUE_MIN);
+        charterBarWithXMarker.setValues(values);
+        charterBarWithXMarker.show();
+      }
+    });
+
+    final CharterXMarkers charterBarXMarkers =
+        (CharterXMarkers) findViewById(R.id.charter_bar_XMarker);
+    charterBarXMarkers.setStickyEdges(false);
+    charterBarXMarkers.setSeparatorStrokeSize(2);
+    charterBarXMarkers.setMarkersCount(DEFAULT_ITEMS_COUNT);
+
+    // charter_line_YMarker
+    final CharterLine charterLineWithYMarker =
+        (CharterLine) findViewById(R.id.charter_line_with_YMarker);
+    charterLineWithYMarker.setValues(values);
+    charterLineWithYMarker.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        values = fillRandomValues(DEFAULT_ITEMS_COUNT, DEFAULT_RANDOM_VALUE_MAX,
+            DEFAULT_RANDOM_VALUE_MIN);
+        charterLineWithYMarker.setValues(values);
+        charterLineWithYMarker.show();
+      }
+    });
+
+    final CharterYMarkers charterLineYMarkers =
+        (CharterYMarkers) findViewById(R.id.charter_line_YMarker);
+    charterLineYMarkers.setVisibilityPattern(new boolean[] { true, false });
+    charterLineYMarkers.setHeightCorrectionFromCharterLine(charterLineWithYMarker);
+    charterLineYMarkers.setMarkersCount(DEFAULT_ITEMS_COUNT);
+
+    // charter_bar_YMarker
+    final CharterBar charterBarWithYMarker =
+        (CharterBar) findViewById(R.id.charter_bar_with_YMarker);
+    charterBarWithYMarker.setValues(values);
+    charterBarWithYMarker.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        values = fillRandomValues(DEFAULT_ITEMS_COUNT, DEFAULT_RANDOM_VALUE_MAX,
+            DEFAULT_RANDOM_VALUE_MIN);
+        charterBarWithYMarker.setValues(values);
+        charterBarWithYMarker.show();
+      }
+    });
+
+    final CharterYMarkers charterBarYMarkers =
+        (CharterYMarkers) findViewById(R.id.charter_bar_YMarker);
+    charterBarYMarkers.setVisibilityPattern(new boolean[] { true, false });
+    charterBarYMarkers.setMarkersCount(DEFAULT_ITEMS_COUNT);
   }
 
   private float[] fillRandomValues(int length, int max, int min) {

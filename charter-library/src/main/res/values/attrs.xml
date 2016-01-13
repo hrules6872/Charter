@@ -25,6 +25,7 @@
     <attr name="c_barColor" format="color"/>
     <attr name="c_barBackgroundColor" format="color"/>
     <attr name="c_barMargin" format="dimension"/>
+    <attr name="c_barMinHeightCorrection" format="dimension"/>
     <attr name="c_stickyEdges" format="boolean"/>
     <attr name="c_verticalGravity" format="enum">
       <enum name="top" value="0"/>
@@ -38,5 +39,11 @@
     </attr>
     <attr name="c_labelColor" format="color"/>
     <attr name="c_labelSize" format="dimension"/>
+    <attr name="c_markerStrokeSize" format="dimension"/>
+    <attr name="c_markerColor" format="color"/>
+    <attr name="c_separatorStrokeSize" format="dimension"/>
+    <attr name="c_separatorColor" format="color"/>
+    <attr name="c_widthCorrection" format="dimension"/>
+    <attr name="c_heightCorrection" format="dimension"/>
   </declare-styleable>
 </resources>
