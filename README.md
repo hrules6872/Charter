@@ -14,7 +14,7 @@ dependencies {
 
 Developed by
 -------
-Héctor de Isidro - hrules6872 [![Twitter](http://img.shields.io/badge/contact-@h_rules-blue.svg?style=flat)](http://twitter.com/h_rules)
+Héctor de Isidro - hrules6872 [![Twitter](http://img.shields.io/badge/contact-@hector6872-blue.svg?style=flat)](http://twitter.com/hector6872)
 
 License
 -------
