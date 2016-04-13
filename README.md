@@ -4,7 +4,14 @@ Charter
 
 ![image](demo.gif)
 
+##Usage
+
+Please refer to the [sample](charter-demo) for seeing it in action.
+
+Shortcut to [attrs.xml](charter-library/src/main/res/values/attrs.xml)
+
 ##Importing to your project
+
 Add this dependency to your build.gradle file:
 ```java
 dependencies {
