@@ -1,0 +1,15 @@
+ext {
+  androidBuildToolsVersion = '23.0.3'
+  androidBuildMinSDKVersion = '15'
+  androidBuildTargetSDKVersion = '23'
+  androidBuildCompileSDKVersion = 'android-23'
+
+  // internal
+  libraryVersionCode = 140
+  libraryVersionName = '1.4.0'
+
+  // support libraries
+  supportLibraryVersion = '23.+'
+  supportDependencies = [appCompat         : "com.android.support:appcompat-v7:${supportLibraryVersion}",
+                         supportAnnotations: "com.android.support:support-annotations:${supportLibraryVersion}"]
+}
