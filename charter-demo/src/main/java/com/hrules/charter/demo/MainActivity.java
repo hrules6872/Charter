@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.hrules.charter.CharterBar;
 import com.hrules.charter.CharterLine;
 import com.hrules.charter.CharterXLabels;
@@ -14,6 +16,25 @@ import com.hrules.charter.CharterYMarkers;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+  @Bind(R.id.charter_line) CharterLine charterLine;
+  @Bind(R.id.charter_bar) CharterBar charterBar;
+  @Bind(R.id.charter_bar_no_margin) CharterBar charterBarNoMargin;
+  @Bind(R.id.charter_line_XLabel) CharterXLabels charterLineLabelX;
+  @Bind(R.id.charter_line_with_XLabel) CharterLine charterLineWithLabel;
+  @Bind(R.id.charter_bar_XLabel) CharterXLabels charterBarLabelX;
+  @Bind(R.id.charter_bar_with_XLabel) CharterBar charterBarWithLabel;
+  @Bind(R.id.charter_line_YLabel) CharterYLabels charterLineYLabel;
+  @Bind(R.id.charter_bar_YLabel) CharterYLabels charterBarYLabel;
+  @Bind(R.id.charter_bar_with_YLabel) CharterBar charterBarWithYLabel;
+  @Bind(R.id.charter_line_with_XMarker) CharterLine charterLineWithXMarker;
+  @Bind(R.id.charter_line_XMarker) CharterXMarkers charterLineXMarkers;
+  @Bind(R.id.charter_bar_with_XMarker) CharterBar charterBarWithXMarker;
+  @Bind(R.id.charter_bar_XMarker) CharterXMarkers charterBarXMarkers;
+  @Bind(R.id.charter_line_with_YMarker) CharterLine charterLineWithYMarker;
+  @Bind(R.id.charter_line_YMarker) CharterYMarkers charterLineYMarkers;
+  @Bind(R.id.charter_bar_with_YMarker) CharterBar charterBarWithYMarker;
+  @Bind(R.id.charter_bar_YMarker) CharterYMarkers charterBarYMarkers;
+
   private static final int DEFAULT_ITEMS_COUNT = 15;
   private static final int DEFAULT_RANDOM_VALUE_MIN = 10;
   private static final int DEFAULT_RANDOM_VALUE_MAX = 100;
@@ -23,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    ButterKnife.bind(this);
 
     values =
         fillRandomValues(DEFAULT_ITEMS_COUNT, DEFAULT_RANDOM_VALUE_MAX, DEFAULT_RANDOM_VALUE_MIN);
@@ -33,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     };
 
     // charter_line
-    final CharterLine charterLine = (CharterLine) findViewById(R.id.charter_line);
     charterLine.setValues(values);
     charterLine.setAnimInterpolator(new BounceInterpolator());
     charterLine.setShowGridLines(true);
@@ -47,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
     });
 
     // charter_bar
-    final CharterBar charterBar = (CharterBar) findViewById(R.id.charter_bar);
     charterBar.setValues(values);
     charterBar.setColors(barColors);
     charterBar.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
     });
 
     // charter_bar_no_margin
-    final CharterBar charterBarNoMargin = (CharterBar) findViewById(R.id.charter_bar_no_margin);
     charterBarNoMargin.setValues(values);
     charterBarNoMargin.setBarMargin(0);
     charterBarNoMargin.setColors(barColors);
@@ -77,13 +96,9 @@ public class MainActivity extends AppCompatActivity {
     });
 
     // charter_line_XLabel
-    final CharterXLabels charterLineLabelX =
-        (CharterXLabels) findViewById(R.id.charter_line_XLabel);
     charterLineLabelX.setStickyEdges(true);
     charterLineLabelX.setValues(values);
 
-    final CharterLine charterLineWithLabel =
-        (CharterLine) findViewById(R.id.charter_line_with_XLabel);
     charterLineWithLabel.setValues(values);
     charterLineWithLabel.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
@@ -97,12 +112,10 @@ public class MainActivity extends AppCompatActivity {
     });
 
     // charter_bar_XLabel
-    final CharterXLabels charterBarLabelX = (CharterXLabels) findViewById(R.id.charter_bar_XLabel);
     charterBarLabelX.setStickyEdges(false);
     charterBarLabelX.setVisibilityPattern(new boolean[] { true, false });
     charterBarLabelX.setValues(values);
 
-    final CharterBar charterBarWithLabel = (CharterBar) findViewById(R.id.charter_bar_with_XLabel);
     charterBarWithLabel.setValues(values);
     charterBarWithLabel.setColors(barColors);
     charterBarWithLabel.setOnClickListener(new View.OnClickListener() {
@@ -117,8 +130,6 @@ public class MainActivity extends AppCompatActivity {
     });
 
     // charter_line_YLabel
-    final CharterYLabels charterLineYLabel =
-        (CharterYLabels) findViewById(R.id.charter_line_YLabel);
     charterLineYLabel.setValues(values, true);
 
     final CharterLine charterLineWithYLabel =
@@ -136,11 +147,9 @@ public class MainActivity extends AppCompatActivity {
     });
 
     // charter_bar_YLabel
-    final CharterYLabels charterBarYLabel = (CharterYLabels) findViewById(R.id.charter_bar_YLabel);
     charterBarYLabel.setVisibilityPattern(new boolean[] { true, false });
     charterBarYLabel.setValues(values, true);
 
-    final CharterBar charterBarWithYLabel = (CharterBar) findViewById(R.id.charter_bar_with_YLabel);
     charterBarWithYLabel.setValues(values);
     charterBarWithYLabel.setColors(barColors);
     charterBarWithYLabel.setOnClickListener(new View.OnClickListener() {
@@ -155,8 +164,6 @@ public class MainActivity extends AppCompatActivity {
     });
 
     // charter_line_XMarker
-    final CharterLine charterLineWithXMarker =
-        (CharterLine) findViewById(R.id.charter_line_with_XMarker);
     charterLineWithXMarker.setValues(values);
     charterLineWithXMarker.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
@@ -167,15 +174,11 @@ public class MainActivity extends AppCompatActivity {
       }
     });
 
-    final CharterXMarkers charterLineXMarkers =
-        (CharterXMarkers) findViewById(R.id.charter_line_XMarker);
     charterLineXMarkers.setSeparatorStrokeSize(2);
     charterLineXMarkers.setWidthCorrectionFromCharterLine(charterLineWithXMarker);
     charterLineXMarkers.setMarkersCount(DEFAULT_ITEMS_COUNT);
 
     // charter_bar_XMarker
-    final CharterBar charterBarWithXMarker =
-        (CharterBar) findViewById(R.id.charter_bar_with_XMarker);
     charterBarWithXMarker.setValues(values);
     charterBarWithXMarker.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
@@ -186,15 +189,11 @@ public class MainActivity extends AppCompatActivity {
       }
     });
 
-    final CharterXMarkers charterBarXMarkers =
-        (CharterXMarkers) findViewById(R.id.charter_bar_XMarker);
     charterBarXMarkers.setStickyEdges(false);
     charterBarXMarkers.setSeparatorStrokeSize(2);
     charterBarXMarkers.setMarkersCount(DEFAULT_ITEMS_COUNT);
 
     // charter_line_YMarker
-    final CharterLine charterLineWithYMarker =
-        (CharterLine) findViewById(R.id.charter_line_with_YMarker);
     charterLineWithYMarker.setValues(values);
     charterLineWithYMarker.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
@@ -205,15 +204,11 @@ public class MainActivity extends AppCompatActivity {
       }
     });
 
-    final CharterYMarkers charterLineYMarkers =
-        (CharterYMarkers) findViewById(R.id.charter_line_YMarker);
     charterLineYMarkers.setVisibilityPattern(new boolean[] { true, false });
     charterLineYMarkers.setHeightCorrectionFromCharterLine(charterLineWithYMarker);
     charterLineYMarkers.setMarkersCount(DEFAULT_ITEMS_COUNT);
 
     // charter_bar_YMarker
-    final CharterBar charterBarWithYMarker =
-        (CharterBar) findViewById(R.id.charter_bar_with_YMarker);
     charterBarWithYMarker.setValues(values);
     charterBarWithYMarker.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
@@ -224,8 +219,6 @@ public class MainActivity extends AppCompatActivity {
       }
     });
 
-    final CharterYMarkers charterBarYMarkers =
-        (CharterYMarkers) findViewById(R.id.charter_bar_YMarker);
     charterBarYMarkers.setVisibilityPattern(new boolean[] { true, false });
     charterBarYMarkers.setMarkersCount(DEFAULT_ITEMS_COUNT);
   }

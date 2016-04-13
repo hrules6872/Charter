@@ -12,4 +12,7 @@ ext {
   supportLibraryVersion = '23.+'
   supportDependencies = [appCompat         : "com.android.support:appcompat-v7:${supportLibraryVersion}",
                          supportAnnotations: "com.android.support:support-annotations:${supportLibraryVersion}"]
+
+  // project dependencies
+  projectDependencies = [butterKnife: "com.jakewharton:butterknife:7.+"]
 }
