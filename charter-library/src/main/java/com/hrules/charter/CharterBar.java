@@ -146,7 +146,7 @@ public class CharterBar extends CharterBase {
     final float diff = maxY - minY;
     final float sliceHeight = height / diff;
 
-    int colorsPos = 0;
+    int colorsPos = -1;
     int colorsBackgroundPos = -1;
 
     for (int i = 0; i < valuesLength; i++) {
