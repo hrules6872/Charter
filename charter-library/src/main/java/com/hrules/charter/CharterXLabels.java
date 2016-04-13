@@ -44,6 +44,8 @@ public class CharterXLabels extends CharterLabelsBase {
     float y;
 
     for (int i = 0; i < valuesLength; i++) {
+      String value = allCaps ? values[i].toUpperCase() : values[i];
+
       if (visibilityPatternPos + 1 >= visibilityPattern.length) {
         visibilityPatternPos = 0;
       } else {
@@ -52,7 +54,7 @@ public class CharterXLabels extends CharterLabelsBase {
 
       if (visibilityPattern[visibilityPatternPos]) {
         Rect textBounds = new Rect();
-        paintLabel.getTextBounds(values[i], 0, values[i].length(), textBounds);
+        paintLabel.getTextBounds(value, 0, value.length(), textBounds);
         int textHeight = 2 * textBounds.bottom - textBounds.top;
         float textWidth = textBounds.right;
 
@@ -82,7 +84,7 @@ public class CharterXLabels extends CharterLabelsBase {
         } else {
           x = gap * i + (gap / 2) - (textWidth / 2);
         }
-        canvas.drawText(values[i], x, y, paintLabel);
+        canvas.drawText(value, x, y, paintLabel);
       }
     }
   }

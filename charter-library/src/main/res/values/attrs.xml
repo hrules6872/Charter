@@ -39,6 +39,7 @@
     </attr>
     <attr name="c_labelColor" format="color"/>
     <attr name="c_labelSize" format="dimension"/>
+    <attr name="c_labelAllCaps" format="boolean"/>
     <attr name="c_markerStrokeSize" format="dimension"/>
     <attr name="c_markerColor" format="color"/>
     <attr name="c_separatorStrokeSize" format="dimension"/>

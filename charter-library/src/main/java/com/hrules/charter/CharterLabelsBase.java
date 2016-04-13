@@ -42,6 +42,7 @@ class CharterLabelsBase extends View {
   int horizontalGravity;
   String[] values;
   boolean stickyEdges;
+  boolean allCaps;
 
   protected CharterLabelsBase(Context context) {
     this(context, null);
@@ -80,6 +81,8 @@ class CharterLabelsBase extends View {
         res.getColor(R.color.default_labelColor));
     float paintLabelSize = typedArray.getDimension(R.styleable.Charter_c_labelSize,
         getResources().getDimension(R.dimen.default_labelSize));
+    allCaps = typedArray.getBoolean(R.styleable.Charter_c_labelAllCaps,
+        res.getBoolean(R.bool.default_labelAllCaps));
     typedArray.recycle();
 
     paintLabel = new Paint();
@@ -88,6 +91,15 @@ class CharterLabelsBase extends View {
     paintLabel.setTextSize(paintLabelSize);
 
     visibilityPattern = new boolean[] { true };
+  }
+
+  public boolean isLabelAllCaps() {
+    return allCaps;
+  }
+
+  public void setLabelAllCaps(boolean allCaps) {
+    this.allCaps = allCaps;
+    invalidate();
   }
 
   public boolean isStickyEdges() {
