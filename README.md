@@ -15,7 +15,7 @@ Shortcut to [attrs.xml](charter-library/src/main/res/values/attrs.xml)
 Add this dependency to your build.gradle file:
 ```java
 dependencies {
-    compile 'com.hrules:charter:1.5.0'
+    compile 'com.hrules:charter:1.5.1'
 }
 ```
 
